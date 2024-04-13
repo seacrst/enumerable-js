@@ -1,0 +1,12 @@
+{
+  "name": "npm_init",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "tsc": "tsc --watch",
+    "start": "node --watch dist/main.js"
+  },
+  "dependencies": {
+    "typescript": "^5.4.5"
+  }
+}
