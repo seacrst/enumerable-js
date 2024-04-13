@@ -1,3 +1,45 @@
+type OneTwo = "one" | "two";
+
+function toTupleObject<T extends string | number | symbol>(keys: T[]): Record<T, number> {
+  const ob = keys.reduce((tot, cur, i) => {
+    // @ts-ignore
+    tot[cur] = i;
+    return tot;
+  }, {} as Record<T, number>);
+
+  return Object.freeze(ob);
+}
+
+const tuple: OneTwo[] = ["one", "two"];
+
+
+const units = toTupleObject(tuple);
+console.log("tuple ", tuple[units.one])
+
+function asTuple<T extends Record<keyof T, number>>(ob: T): [readonly string[], T] {
+  const tup = Object.keys(ob);
+  tup.forEach((k, i) => {
+    // @ts-ignore
+    ob[k] = i;
+  });
+  
+  return [Object.freeze(tup), ob];
+}
+
+  
+function unit() {
+  return 0;
+}
+
+const [tup, {ax, bx}] = asTuple({
+  ax: unit(),
+  bx: unit()
+});
+
+
+
+console.log('tup', tup[ax])
+
 type Variant<T> = () => T;
 
 function enumarate<V,T extends Record<keyof T, () => V>>(ob: T): [readonly string[], Record<keyof T, (v: V) => number>, () => V] {

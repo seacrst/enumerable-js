@@ -3,7 +3,7 @@
   "type": "module",
   "main": "main.js",
   "scripts": {
-    "tsc": "tsc --watch",
+    "check": "tsc --watch",
     "start": "node --watch dist/main.js"
   },
   "dependencies": {

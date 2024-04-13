@@ -1,4 +1,31 @@
 "use strict";
+function toTupleObject(keys) {
+    const ob = keys.reduce((tot, cur, i) => {
+        // @ts-ignore
+        tot[cur] = i;
+        return tot;
+    }, {});
+    return Object.freeze(ob);
+}
+const tuple = ["one", "two"];
+const units = toTupleObject(tuple);
+console.log("tuple ", tuple[units.one]);
+function asTuple(ob) {
+    const tup = Object.keys(ob);
+    tup.forEach((k, i) => {
+        // @ts-ignore
+        ob[k] = i;
+    });
+    return [Object.freeze(tup), ob];
+}
+function unit() {
+    return 0;
+}
+const [tup, { ax, bx }] = asTuple({
+    ax: unit(),
+    bx: unit()
+});
+console.log('tup', tup[ax]);
 function enumarate(ob) {
     const keys = Object.keys(ob);
     const self = {
